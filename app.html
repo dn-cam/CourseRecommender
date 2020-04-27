@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Course Recommendation Engine</title>
+</head>
+<body>
+
+<center>
+<h1>Course Recommendation Engine</h1>
+<p>Hosted with &hearts; on AWS<p>
+<form>
+  <label for="fname">Enter skills you want to learn</label><br>
+  Skills : <input type="string" name="a" id="a"><br>
+    <button id = "fetchCoursesBtn">Fetch courses</button>
+  <hr>  
+  <div id='show'></div>
+    
+</form>
+
+<script>
+    document.getElementById('fetchCoursesBtn').addEventListener('click', showText);
+    
+  function showText()
+    {
+        var userInput = document.getElementById('a').value;
+        console.log(userInput);
+        fetch('http://127.0.0.1:5002/recommend', {
+              method: 'post',
+              body: JSON.stringify({"userInput": userInput})
+            })
+        .then(function(response){
+            console.log(response.json);
+            document.getElementById("show").innerHTML = response;});
+       
+            //.then(data => {
+            //const resData = data.text();
+            //console.log(resData);
+            //document.getElementById("show").innerHTML = resData;
+            //document.write(resData)});
+        
+    }//end of showText()
+
+</script>
+
+<div id="text1"></div>    
+</center>
+</body>
+</html>
